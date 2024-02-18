@@ -1,0 +1,29 @@
+import pandas as pd
+from sklearn.model_selection import train_test_split
+
+def load_and_split_data(csv_file, test_size=0.2, random_state=None):
+    """
+    Load dataset from a CSV file and split it into training and test sets.
+    
+    Parameters:
+    - csv_file (str): Path to the CSV file containing the dataset.
+    - test_size (float): The proportion of the dataset to include in the test split.
+    - random_state (int): Random seed for reproducibility.
+    
+    Returns:
+    - X_train, X_test, y_train, y_test: Data split into features and labels for training and testing.
+    """
+    # Read dataset from CSV file
+    dataset = pd.read_csv(csv_file)
+    
+    # Assuming the last column is the target variable
+    X = dataset.iloc[:, :-1]  # Features
+    y = dataset.iloc[:, -1]   # Target variable
+    
+    # Split the dataset into training and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=test_size, random_state=random_state)
+    
+    return X_train, X_test, y_train, y_test
+
+# Example usage:
+# X_train, X_test, y_train, y_test = load_and_split_data("dataset.csv")
